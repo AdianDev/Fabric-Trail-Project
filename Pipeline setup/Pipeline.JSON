@@ -1,0 +1,410 @@
+{
+    "name": "Pipeline",
+    "objectId": "8d75c84c-5a11-4b2b-8a4b-d75a84f66358",
+    "properties": {
+        "activities": [
+            {
+                "name": "Raw and Bronze",
+                "type": "TridentNotebook",
+                "dependsOn": [],
+                "policy": {
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "d24aa953-2c86-4f55-b43b-8adde402328f",
+                    "workspaceId": "fe169e2b-687f-4b2b-bdb6-98cd875cc52c",
+                    "parameters": {
+                        "tables_str": {
+                            "value": {
+                                "value": "@pipeline().parameters.tables_str",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "raw": {
+                            "value": {
+                                "value": "@pipeline().parameters.raw",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "bronze": {
+                            "value": {
+                                "value": "@pipeline().parameters.bronze",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "lakehouse": {
+                            "value": {
+                                "value": "@pipeline().parameters.lakehouse",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "workspace": {
+                            "value": {
+                                "value": "@pipeline().parameters.workspace",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "Silver Load Condition",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Raw and Bronze",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "c57d02bd-0151-4786-b358-705671ca805c",
+                    "workspaceId": "fe169e2b-687f-4b2b-bdb6-98cd875cc52c",
+                    "parameters": {
+                        "tables_str": {
+                            "value": {
+                                "value": "@pipeline().parameters.tables_str",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "bronze": {
+                            "value": {
+                                "value": "@pipeline().parameters.bronze",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "silver": {
+                            "value": {
+                                "value": "@pipeline().parameters.silver",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "lakehouse": {
+                            "value": {
+                                "value": "@pipeline().parameters.lakehouse",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "workspace": {
+                            "value": {
+                                "value": "@pipeline().parameters.workspace",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "Silver Load Encounter",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Raw and Bronze",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "7683a360-4b1c-4fd8-91f1-cebf2a889ea9",
+                    "workspaceId": "fe169e2b-687f-4b2b-bdb6-98cd875cc52c",
+                    "parameters": {
+                        "tables_str": {
+                            "value": {
+                                "value": "@pipeline().parameters.tables_str",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "bronze": {
+                            "value": {
+                                "value": "@pipeline().parameters.bronze",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "silver": {
+                            "value": {
+                                "value": "@pipeline().parameters.silver",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "lakehouse": {
+                            "value": {
+                                "value": "@pipeline().parameters.lakehouse",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "workspace": {
+                            "value": {
+                                "value": "@pipeline().parameters.workspace",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "Silver Load Observation",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Raw and Bronze",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "ebd33489-16a2-4746-a0f5-8610d5596d4f",
+                    "workspaceId": "fe169e2b-687f-4b2b-bdb6-98cd875cc52c",
+                    "parameters": {
+                        "tables_str": {
+                            "value": {
+                                "value": "@pipeline().parameters.tables_str",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "bronze": {
+                            "value": {
+                                "value": "@pipeline().parameters.bronze",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "silver": {
+                            "value": {
+                                "value": "@pipeline().parameters.silver",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "lakehouse": {
+                            "value": {
+                                "value": "@pipeline().parameters.lakehouse",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "workspace": {
+                            "value": {
+                                "value": "@pipeline().parameters.workspace",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "Silver Load Patient",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Raw and Bronze",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "2e7e363e-41b1-4a7c-a298-d6b197e7f041",
+                    "workspaceId": "fe169e2b-687f-4b2b-bdb6-98cd875cc52c",
+                    "parameters": {
+                        "tables_str": {
+                            "value": {
+                                "value": "@pipeline().parameters.tables_str",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "bronze": {
+                            "value": {
+                                "value": "@pipeline().parameters.bronze",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "silver": {
+                            "value": {
+                                "value": "@pipeline().parameters.silver",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "lakehouse": {
+                            "value": {
+                                "value": "@pipeline().parameters.lakehouse",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "workspace": {
+                            "value": {
+                                "value": "@pipeline().parameters.workspace",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "Gold Load",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Silver Load Condition",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "Silver Load Patient",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "Silver Load Encounter",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    },
+                    {
+                        "activity": "Silver Load Observation",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "notebookId": "9b82b418-739e-4d4c-8e2d-728f54ede8b7",
+                    "workspaceId": "fe169e2b-687f-4b2b-bdb6-98cd875cc52c",
+                    "parameters": {
+                        "tables_str": {
+                            "value": {
+                                "value": "@pipeline().parameters.tables_str",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "silver": {
+                            "value": {
+                                "value": "@pipeline().parameters.silver",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "workspace": {
+                            "value": {
+                                "value": "@pipeline().parameters.workspace",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "lakehouse": {
+                            "value": {
+                                "value": "@pipeline().parameters.lakehouse",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        },
+                        "gold": {
+                            "value": {
+                                "value": "@pipeline().parameters.gold",
+                                "type": "Expression"
+                            },
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        ],
+        "parameters": {
+            "tables_str": {
+                "type": "string",
+                "defaultValue": "Patient,Encounter,Observation,Condition"
+            },
+            "raw": {
+                "type": "string",
+                "defaultValue": "raw"
+            },
+            "bronze": {
+                "type": "string",
+                "defaultValue": "bronze"
+            },
+            "silver": {
+                "type": "string",
+                "defaultValue": "silver"
+            },
+            "gold": {
+                "type": "string",
+                "defaultValue": "gold"
+            },
+            "lakehouse": {
+                "type": "string",
+                "defaultValue": "FHIR_Lakehouse"
+            },
+            "workspace": {
+                "type": "string",
+                "defaultValue": "Fabric_Assignment_Synapx"
+            }
+        },
+        "lastModifiedByObjectId": "816ba332-94e4-439e-b050-59a95a80f3a9",
+        "lastPublishTime": "2026-04-15T08:38:06Z"
+    }
+}
